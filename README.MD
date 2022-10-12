@@ -1,6 +1,6 @@
 # Tugas Individu 1 APAP
 ## Authors
-* Dionisius Mikael Sutanto - 2006522676> - A
+* Dionisius Mikael Sutanto - 2006522676 - A
 
 ## Pendahuluan
 PT. SuperFood adalah perusahaan yang bergerak dalam bidang pangan yang berdiri

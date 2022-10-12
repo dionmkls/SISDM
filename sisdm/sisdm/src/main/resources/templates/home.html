@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>Beranda</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'/'})"></nav>
+
+<div class="d-flex justify-content-center align-items-center">
+  <div class="m-4">
+    <div class="d-flex container-fluid rounded justify-content-center align-items-center" style="background-color: #DF1D5A; height: 10rem;">
+      <h2 class="p-5 text-white">Welcome to SI-SDM</h2>
+    </div>
+    <div class="my-3 d-flex justify-content-center">
+      <h3 style="color:#DF1D5A">List of Features:</h3>
+    </div>
+    <div class="d-flex justify-content-center">
+      <a th:href="@{/karyawan}" class="px-2 mx-2 btn d-flex justify-content-center align-items-center text-wrap text-white" style="background-color: #DF1D5A; width: 7rem;">Karyawan</a>
+      <a th:href="@{/presensi}" class="px-2 mx-2 btn d-flex justify-content-center align-items-center text-wrap text-white" style="background-color: #DF1D5A; width: 7rem;">Presensi</a>
+      <a th:href="@{/tambah-tugas}" class="px-2 mx-2 btn d-flex justify-content-center align-items-center text-wrap text-white" style="background-color: #DF1D5A; width: 7rem;">Tambah Tugas</a>
+      <a th:href="@{/}" class="px-2 mx-2 btn d-flex justify-content-center align-items-center text-wrap text-white" style="background-color: #DF1D5A; width: 7rem;">Filter</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

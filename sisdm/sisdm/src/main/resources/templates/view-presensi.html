@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>Detail Presensi</title>
+  <meta charset="UTF-8">
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+  <style>
+    .top-container {
+      border-top: 4px solid #36c4ef;
+    }
+
+    .container-content {
+      width: 850px;
+      display: flex;
+      justify-content: center;
+      padding-bottom: 80px;
+    }
+
+    .container-table {
+      width: 700px;
+      height: auto;
+      border-radius: 10px;
+      border-style: solid;
+      border-color: #36c4ef;
+    }
+
+    .header-container-table {
+      height: 60px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      background-color: #36c4ef;
+    }
+
+    .content-container-table {
+      display: flex;
+      justify-content: center;
+    }
+
+    .table {
+      margin-top: 20px;
+      width: 650px;
+      height: auto;
+    }
+
+    th {
+      text-align: center;
+      color: #36c4ef;
+    }
+
+    td {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'/karyawan'})"></nav>
+<div class="container">
+  <div class="d-flex flex-row align-items-center justify-content-between mx-4">
+    <div>
+      <a class="btn btn-primary" href="/presensi">Kembali</a>
+    </div>
+    <div>
+      <h2 style="font-weight: bold;">Detail Presensi</h2>
+    </div>
+    <div>
+      <a class="btn btn-warning" th:href="@{/presensi/}+${presensi.idPresensi}+@{/ubah}">Edit</a>
+    </div>
+  </div>
+  <div class="top-container m-4 p-4 shadow p-2 mb-5 rounded">
+    <div class="justify-content-center">
+      <br>
+      <div>
+        <label class="font-weight-bold" style="color: #36C5F1;">Nama Karyawan:</label>
+        <p th:text="${presensi.karyawan.namaDepan} + ' ' + ${presensi.karyawan.namaBelakang}"></p>
+      </div>
+      <div>
+        <label class="font-weight-bold" style="color: #36C5F1;">Tanggal Presensi:</label>
+        <p th:text="${#temporals.format(presensi.tanggal, 'dd MMMM yyyy')}"></p>
+      </div>
+      <div>
+        <label class="font-weight-bold" style="color: #36C5F1;">Waktu Masuk:</label>
+        <p th:text="${#temporals.format(presensi.waktuMasuk, 'HH.mm')}"></p>
+      </div>
+      <div>
+        <label class="font-weight-bold" style="color: #36C5F1;">Waktu Keluar:</label>
+        <p th:text="${#temporals.format(presensi.waktuKeluar, 'HH.mm')}"></p>
+      </div>
+      <div>
+        <label class="font-weight-bold" style="color: #36C5F1;">Status:</label>
+        <div>
+          <p style="color: #cb436f; font-weight: bold" th:if="${presensi.status == 0}">TERLAMBAT</p>
+          <p style="color: #5fc399; font-weight: bold" th:unless="${presensi.status == 0}">TEPAT WAKTU</p>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="container-content mt-5">
+        <div class="container-table">
+          <div class="header-container-table">
+            <h5 class="table-title text-white ml-4 mt-2">Daftar Tugas</h5>
+          </div>
+          <div class="content-container-table">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Deskripsi</th>
+                <th>Story Point</th>
+                <th>Status</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="tugas, iterationStatus : ${listTugas}"
+                  th:style="${iterationStatus.even} ? 'background-color:#f2f2f2;' : 'background-color:#eceaea;'">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${tugas.nama}"></td>
+                <td th:text="${tugas.deskripsi}"></td>
+                <td th:text="${tugas.storyPoint}"></td>
+                <td th:if="${tugas.status} == 0">Dimulai</td>
+                <td th:if="${tugas.status} == 1">Dikerjakan</td>
+                <td th:if="${tugas.status} == 2">Selesai</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>Detail Karyawan</title>
+  <meta charset="UTF-8">
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+  <style>
+    .top-container {
+      border-top: 4px solid #36c4ef;
+    }
+
+    .container-content {
+      width: 850px;
+      display: flex;
+      justify-content: center;
+      padding-bottom: 80px;
+    }
+
+    .container-table {
+      width: 700px;
+      height: auto;
+      border-radius: 10px;
+      border-style: solid;
+      border-color: #36c4ef;
+    }
+
+    .header-container-table {
+      height: 60px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      background-color: #36c4ef;
+    }
+
+    .content-container-table {
+      display: flex;
+      justify-content: center;
+    }
+
+    .table {
+      margin-top: 20px;
+      width: 650px;
+      height: auto;
+    }
+
+    th {
+      text-align: center;
+      color: #36c4ef;
+    }
+
+    td {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'/karyawan'})"></nav>
+<div class="container">
+  <div class="d-flex flex-row align-items-center justify-content-between mx-4">
+    <div>
+      <a class="btn btn-primary" href="/karyawan">Kembali</a>
+    </div>
+    <div class="ml-4">
+      <h2 style="font-weight: bold;">Detail Karyawan</h2>
+    </div>
+    <div>
+      <form th:action="@{/karyawan/${karyawan.idKaryawan}/hapus}" th:object="${karyawan}" method="POST">
+        <button name="hapusKaryawan" type="submit" class="btn btn-danger" th:value="${karyawan.idKaryawan}">Hapus</button>
+      </form>
+    </div>
+  </div>
+  <div class="top-container m-4 p-4 shadow p-2 mb-5 rounded">
+    <div class="justify-content-center">
+      <div>
+        <a class="btn btn-warning" th:href="@{/karyawan/}+${karyawan.idKaryawan}+@{/ubah}">Edit</a>
+      </div>
+      <br>
+      <div>
+        <label class="font-weight-bold" style="color: #36C5F1;">Nama Karyawan:</label>
+        <p th:text="${karyawan.namaDepan} + ' ' + ${karyawan.namaBelakang}"></p>
+      </div>
+      <div>
+        <label class="font-weight-bold" style="color: #36C5F1;">Jenis Kelamin:</label>
+        <p th:if="${karyawan.jenisKelamin} == 1">Laki-laki</p>
+        <p th:unless="${karyawan.jenisKelamin} == 1">Perempuan</p>
+      </div>
+      <div>
+        <label class="font-weight-bold" style="color: #36C5F1;">Tanggal Lahir:</label>
+        <p th:text="${#temporals.format(karyawan.tanggalLahir, 'dd MMMM yyyy')}"></p>
+      </div>
+      <div>
+        <label class="font-weight-bold" style="color: #36C5F1;">Email:</label>
+        <p th:text="${karyawan.email}"></p>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="container-content mt-5">
+        <div class="container-table">
+          <div class="header-container-table">
+            <h5 class="table-title text-white ml-4 mt-2">Daftar Sertifikasi</h5>
+          </div>
+          <div class="content-container-table">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama Sertifikasi</th>
+                <th>No Sertifikasi</th>
+                <th>Tanggal Pengambilan</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="sertifikasiKaryawan, iterationStatus : ${listSertifikasiKaryawan}">
+                <td th:text="${iterationStatus.count}"></td>
+                <div th:each="sertifikasiEx, iterationStatus2 : ${listSertifikasiExisting}">
+                  <td th:if="${listSertifikasiExisting[__${iterationStatus2.index}__].idSertifikasi} == ${sertifikasiKaryawan.sertifikasi.idSertifikasi}" th:text="${sertifikasiEx.nama}"></td>
+                </div>
+                <td th:text="${sertifikasiKaryawan.noSertifikasi}"></td>
+                <td th:text="${sertifikasiKaryawan.tanggalPengambilan}"></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

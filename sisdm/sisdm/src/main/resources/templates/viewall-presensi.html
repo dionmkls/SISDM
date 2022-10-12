@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>Daftar Presensi</title>
+  <meta charset="UTF-8">
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <style>
+    .top-container {
+      border-top: 4px solid #36c4ef;
+    }
+
+    .container-content {
+      width: 850px;
+      display: flex;
+      justify-content: center;
+      padding-bottom: 80px;
+    }
+
+    .container-table {
+      width: 700px;
+      height: auto;
+      border-radius: 10px;
+      border-style: solid;
+      border-color: #36c4ef;
+    }
+
+    .header-container-table {
+      height: 60px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      background-color: #36c4ef;
+    }
+
+    .content-container-table {
+      display: flex;
+      justify-content: center;
+    }
+
+    .table {
+      margin-top: 20px;
+      width: 650px;
+      height: auto;
+    }
+
+    .add-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    th {
+      text-align: center;
+      color: #36c4ef;
+    }
+
+    table tr td {
+      text-align: center;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'/presensi'})"></nav>
+<div class="container">
+    <div class="d-flex justify-content-center">
+      <h2 style="font-weight: bold;">Detail Presensi</h2>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="container-content mt-4">
+        <div class="container-table">
+          <div class="header-container-table">
+            <h5 class="table-title text-white ml-4 mt-2">Data Presensi</h5>
+            <a class="add-button btn btn-info mr-4 mt-2" th:href="@{/presensi/tambah}"><ion-icon name="add-outline"></ion-icon> Tambah Presensi</a>
+          </div>
+          <div class="content-container-table">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="presensi, iterationStatus : ${listPresensi}"
+                  th:style="${iterationStatus.even} ? 'background-color:#f2f2f2;' : 'background-color:#eceaea;'">
+                <td style="vertical-align:middle;" th:text="${iterationStatus.count}"></td>
+                <td style="vertical-align:middle;" th:text="${presensi.karyawan.getNamaDepan()} + ' ' + ${presensi.karyawan.getNamaBelakang()}"></td>
+                <td style="vertical-align:middle;" th:text="${presensi.tanggal}"></td>
+                <div>
+                  <td style="color: #cb436f; font-weight: bold; vertical-align:middle;" th:if="${presensi.status == 0}">TERLAMBAT</td>
+                  <td style="color: #5fc399; font-weight: bold; vertical-align:middle;" th:unless="${presensi.status == 0}">TEPAT WAKTU</td>
+                </div>
+<!--                <td th:th:text="${presensi.status}"></td>-->
+                <td>
+                  <a style="background-color: #2db57d; font-weight: bold;" class="btn text-white" th:href="@{/presensi/} + ${presensi.idPresensi}">Detail</a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

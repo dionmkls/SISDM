@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tambah Tugas</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<style>
+  p {
+    font-weight: bold;
+  }
+
+  .required:after {
+    content:" *";
+    color: red;
+  }
+
+</style>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'/tambah-tugas'})"></nav>
+<div class="d-flex justify-content-center">
+  <div class="container-content p-4 mt-3 mb-5 shadow p-2 mb-3 rounded">
+    <div class="container-table">
+      <div class="content-container-table">
+        <form th:action="@{/tambah-tugas}" th:object="${tugas}" method="POST">
+          <table class="table table-borderless">
+            <thead>
+            <h2 style="font-weight: bold;">Tambah Tugas</h2>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                <p class="required">Nama Tugas:</p>
+                <input required class="form-control" type="text" th:field="*{nama}" placeholder="Nama Tugas"/>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p class="required">Deskripsi:</p>
+                <textarea required class="form-control" type="text" th:field="*{deskripsi}" placeholder="Deskripsi" rows="4" cols="50"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p class="required">Story Point:</p>
+                <input required class="form-control" type="text" th:field="*{storyPoint}" placeholder="Story Point"/>
+              </td>
+              <td>
+                <p class="required">Status:</p>
+                <select class="form-control" th:field="*{status}">
+                  <div>
+                    <option th:value="0">Dimulai</option>
+                    <option th:value="1">Dikerjakan</option>
+                    <option th:value="2">Selesai</option>
+                  </div>
+                </select>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+          <button class="btn btn-danger" type="submit">Simpan</button>
+          <a class="btn btn-secondary" href="/">Batal</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

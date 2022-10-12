@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>SISDM-Fragment</title>
+  <head th:fragment="css">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  </head>
+  <head th:fragment="js">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFIBw8HfCJo="
+            crossorigin="anonymous"
+    ></script>
+
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+  </head>
+</head>
+
+<body>
+<nav th:fragment="navbar(page)" class="navbar navbar-expand-lg navbar-dark shadow p-2 mb-5" style="background-color: #DF1D5A;">
+  <div class="d-flex container-fluid">
+    <a class="navbar-brand font-weight-bold text-white ml-3" href="/">SI-SDM</a>
+    <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" th:classappend="${page == '/karyawan'} ? active : ''">
+          <a class="nav-link mx-3" th:href="@{/karyawan}">Karyawan</a>
+        </li>
+        <li class="nav-item" th:classappend="${page == '/presensi'} ? active : ''">
+          <a class="nav-link mx-3" th:href="@{/presensi}">Presensi</a>
+        </li>
+        <li class="nav-item" th:classappend="${page == '/tambah-tugas'} ? active : ''">
+          <a class="nav-link mx-3" th:href="@{/tambah-tugas}">Tambah Tugas</a>
+        </li>
+        <li class="nav-item" th:classappend="${page == '/filter'} ? active : ''">
+          <a class="nav-link mx-3 dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Filter
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Update Karyawan</title>-->
+<!--    <object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
+<!--    <object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
+<!--</head>-->
+<!--<body>-->
+<!--<nav th:replace="fragments/fragment :: navbar (${'/karyawan'})"></nav>-->
+<!--<div class="container">-->
+<!--    <div class="card m-4 p-4">-->
+<!--        <div class="card-body">-->
+<!--            <div class="justify-content-center">-->
+<!--                <h2>Ubah Data Karyawan</h2>-->
+<!--                <br>-->
+<!--                <form th:action="@{/karyawan/tambah}" th:object="${karyawan}" method="POST">-->
+<!--                    <label class="font-weight-bold">Nama Karyawan:</label>-->
+<!--                    <div class="form-row">-->
+<!--                        <div class="col mr-4">-->
+<!--                            <input required class="form-control" placeholder="Nama Depan" type="text" th:field="*{namaDepan}"/> <br>-->
+<!--                        </div>-->
+<!--                        <div class="col mr-4">-->
+<!--                            <input required class="form-control" placeholder="Nama Belakang" type="text" th:field="*{namaBelakang}"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <br>-->
+<!--                    <div class="form-row">-->
+<!--                        <div class="col mr-4">-->
+<!--                            <label class="font-weight-bold">Email:</label>-->
+<!--                            <input required class="form-control" placeholder="Email" type="text" th:field="*{email}"/>-->
+<!--                            <small id="emailHelp" class="form-text text-muted">We'll never share employee's email address with anyone else.</small>-->
+<!--                        </div>-->
+<!--                        <div class="col mr-4">-->
+<!--                            <label class="font-weight-bold">Tanggal Lahir:</label>-->
+<!--                            <input required class="form-control" type="date" th:field="*{tanggalLahir}"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <br>-->
+<!--                    <label class="font-weight-bold">Jenis Kelamin:</label>-->
+<!--                    <div class="form-check">-->
+<!--                        <input class="form-check-input" type="radio" id="radioMale" value="1" th:field="*{jenisKelamin}">-->
+<!--                        <label class="form-check-label" for="radioMale">Laki-laki</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check">-->
+<!--                        <input class="form-check-input" type="radio" id="radioFemale" value="2" th:field="*{jenisKelamin}">-->
+<!--                        <label class="form-check-label" for="radioFemale">Perempuan</label>-->
+<!--                    </div>-->
+<!--                    <br>-->
+<!--                    <table class="table">-->
+<!--                        <label class="font-weight-bold">Daftar Sertifikasi :</label>-->
+<!--&lt;!&ndash;                        <thead>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <th>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <button class="btn btn-success rounded-circle" type="submit" name="addRow">+</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </th>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </thead>&ndash;&gt;-->
+<!--                        <tbody>-->
+<!--                        <tr th:each="sertifikasiKaryawan, iterationStatus : *{listSertifikasiKaryawan}">-->
+<!--                            <td>-->
+<!--                                <select name="idSertifikasi" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].keyId.idSertifikasi}"-->
+<!--                                        class="form-control">-->
+<!--                                    <div th:each="sertifikasiEx, iterationStatus2 : ${listSertifikasiExisting}">-->
+<!--                                        <option th:value="${sertifikasiEx.idSertifikasi}" th:text="${sertifikasiEx.nama}"></option>-->
+<!--                                    </div>-->
+<!--                                </select>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <input required class="form-control" type="date" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].tanggalPengambilan}"/>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit"-->
+<!--                                        name="deleteRow">Hapus</button>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+
+<!--                    <button class="btn btn-primary" type="submit" name="save">Simpan</button>-->
+<!--                    <a class="btn btn-secondary" href="/">Beranda</a>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ubah Data Karyawan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<style>
+    p {
+        font-weight: bold;
+    }
+
+    .required:after {
+        content:" *";
+        color: red;
+    }
+
+</style>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'/karyawan'})"></nav>
+<div class="d-flex justify-content-center">
+    <div class="container-content p-4 mt-3 mb-5 shadow p-2 mb-3 rounded">
+        <div class="container-table">
+            <div class="content-container-table">
+                <form th:action="@{/karyawan/} +${karyawan.idKaryawan} + @{/ubah}" th:object="${karyawan}" method="POST">
+                    <table class="table table-borderless">
+                        <thead>
+                        <h2 style="font-weight: bold;">Ubah Data Karyawan</h2>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p class="required">Nama Karyawan:</p>
+                                <input required class="form-control" type="text" th:field="*{namaDepan}" placeholder="Nama Depan"/>
+                            </td>
+                            <td>
+                                <p style="color: white">Nama Karyawan:</p>
+                                <input required class="form-control" type="text" th:field="*{namaBelakang}" placeholder="Nama Belakang"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="required">Email:</p>
+                                <input required class="form-control" type="text"  th:field="*{email}" placeholder="Email"/>
+                            </td>
+                            <td>
+                                <p class="required">Tanggal Lahir:</p>
+                                <input required class="form-control" type="date" th:field="*{tanggalLahir}" placeholder="Tanggal Lahir"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="required">Jenis Kelamin:</p>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" th:field="*{jenisKelamin}" name="jeniskelamin" id="laki" th:value="1">
+                                    <label class="form-check-label" for="laki">
+                                        Laki-laki
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" th:field="*{jenisKelamin}" name="jeniskelamin" id="perempuan" th:value="2">
+                                    <label class="form-check-label" for="perempuan">
+                                        Perempuan
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <thead>
+                        <th>Daftar Sertifikasi</th>
+                        </thead>
+                        <tr th:each="sertifikasiKaryawan, iterationStatus : *{listSertifikasiKaryawan}">
+                            <td>
+<!--                                <input type="hidden" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].sertifikasi}">-->
+<!--                                <input type="hidden" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].karyawan}">-->
+<!--                                <input type="hidden" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].noSertifikasi}">-->
+<!--                                <input type="hidden" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].keyId.idKaryawan}">-->
+
+                                <select name="idSertifikasi" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].keyId.idSertifikasi}" class="form-control">
+                                    <div th:each="sertifikasiEx, iterationStatus2 : ${listSertifikasiExisting}">
+                                        <option th:value="${sertifikasiEx.idSertifikasi}" th:text="${sertifikasiEx.nama}"></option>
+                                    </div>
+                                </select>
+                            </td>
+                            <td>
+                                <input class="form-control" type="date" th:field="*{listSertifikasiKaryawan[__${iterationStatus.index}__].tanggalPengambilan}"/>
+                            </td>
+                            <td>
+                                <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit" name="deleteRowSertifikasiUpdate">Hapus</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-success btn-block" type="submit" name="addRowSertifikasiUpdate">+ Tambah Sertifikasi</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <button class="btn btn-danger" type="submit" name="save">Simpan</button>
+                    <a class="btn btn-secondary" href="/karyawan/">Batal</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>Berhasil Tambah Presensi</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'/presensi'})"></nav>
+<div class="container">
+  <div class="m-4 p-5 shadow p-2 mb-5 rounded" style="background-color: #F9F6F6;">
+    <div class="justify-content-center">
+      <h2 th:text="'Presensi tanggal ' + ${presensi.getTanggal()} + ' atas nama ' + ${presensi.getKaryawan().getNamaDepan()} + ' ' + ${presensi.getKaryawan().getNamaBelakang()} + ' berhasil ditambahkan.'"></h2>
+      <br>
+      <a class="btn btn-secondary" href="/">Kembali</a>
+    </div>
+  </div>
+</div>]
+</body>
+</html>
