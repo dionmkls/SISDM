@@ -20,7 +20,12 @@
       <a th:href="@{/karyawan}" class="px-2 mx-2 btn d-flex justify-content-center align-items-center text-wrap text-white" style="background-color: #DF1D5A; width: 7rem;">Karyawan</a>
       <a th:href="@{/presensi}" class="px-2 mx-2 btn d-flex justify-content-center align-items-center text-wrap text-white" style="background-color: #DF1D5A; width: 7rem;">Presensi</a>
       <a th:href="@{/tambah-tugas}" class="px-2 mx-2 btn d-flex justify-content-center align-items-center text-wrap text-white" style="background-color: #DF1D5A; width: 7rem;">Tambah Tugas</a>
-      <a th:href="@{/}" class="px-2 mx-2 btn d-flex justify-content-center align-items-center text-wrap text-white" style="background-color: #DF1D5A; width: 7rem;">Filter</a>
+<!--      <a th:href="@{/}" class="px-2 mx-2 btn d-flex justify-content-center align-items-center text-wrap text-white" style="background-color: #DF1D5A; width: 7rem;">Filter</a>-->
+      <button class="nav-link dropdown-toggle px-2 mx-2 btn d-flex justify-content-center align-items-center text-wrap text-white" style="background-color: #DF1D5A; width: 7rem;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter</button>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" th:href="@{/filter-tugas}">Cari tugas berdasarkan karyawan yang memiliki status tertentu</a>
+        <a class="dropdown-item" th:href="@{/filter-sertifikasi}">Cari karyawan berdasarkan sertifikat</a>
+      </div>
     </div>
   </div>
 </div>

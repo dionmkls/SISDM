@@ -63,7 +63,7 @@ public class KaryawanController {
     @PostMapping(value = "karyawan/tambah", params = {"save"})
     public String addKaryawanSubmitPage(@ModelAttribute KaryawanModel karyawan, Model model) {
         List <SertifikasiKaryawanModel> listSertifikasiKaryawanNew =  karyawan.getListSertifikasiKaryawan();
-        
+
         if (karyawan.getListSertifikasiKaryawan() == null) {
             karyawan.setListSertifikasiKaryawan(new ArrayList<>());
         } else {

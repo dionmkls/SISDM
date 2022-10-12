@@ -51,10 +51,15 @@
         td {
             text-align: center;
         }
+
+        .required:after {
+            content:" *";
+            color: red;
+        }
     </style>
 </head>
 <body>
-<nav th:replace="fragments/fragment :: navbar (${'/filter-tugas'})"></nav>
+<nav th:replace="fragments/fragment :: navbar (${'/filter'})"></nav>
 <div class="container">
     <div class="d-flex align-items-center justify-content-center">
         <div>
@@ -65,7 +70,7 @@
     <div class="d-flex align-items-center justify-content-center">
         <form th:action="@{/filter-tugas/}" method="GET">
             <div>
-                <label>Nama Karyawan:</label>
+                <label class="required" style="font-weight: bold;">Nama Karyawan:</label>
                 <select name="id-karyawan" class="form-control">
                     <div th:each="karyawan, iterationStatus : ${listKaryawan}">
                         <option th:value="${karyawan.idKaryawan}" th:text="${karyawan.namaDepan} + ' ' + ${karyawan.namaBelakang}"></option>
@@ -73,15 +78,16 @@
                 </select>
             </div>
             <div class="ml-3">
-                <label>Status Tugas:</label>
+                <label class="required" style="font-weight: bold;">Status Tugas:</label>
                 <select name="status" class="form-control">
                     <option th:value="0">Dimulai</option>
                     <option th:value="1">Dikerjakan</option>
                     <option th:value="2">Selesai</option>
                 </select>
             </div>
+            <br>
             <div class="d-flex justify-content-center">
-                <button class="btn btn-primary" type="submit" name="filterKaryawan">Cari</button>
+                <button class="btn btn-danger" type="submit" name="filterKaryawan">Cari</button>
             </div>
         </form>
     </div>
